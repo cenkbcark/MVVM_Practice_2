@@ -14,10 +14,10 @@ This is the first project that I've use MVVM with fully understanding.
 <h2>Features</h2>
 
 ```html
-MVVM with protocols and delegates
-Alert Manager
-Loading Manager
-Without storyboard. UIViewController and Cell xib.
+-MVVM with protocols and delegates
+-Alert Manager
+-Loading Manager
+-Without storyboard. UIViewController and Cell xib.
 
 Database:
 -API
