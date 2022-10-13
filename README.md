@@ -4,10 +4,11 @@
 This is the first project that I've use MVVM with fully understanding.
 ```
 
-<h2>Architecture</h2>
+<h2>Architectural Design</h2>
 
 ```html
-I preferred clean MVVM pattern for more testability and maintainability.
+-MVVM
+-Clean code
 ```
 
 <h2>Features</h2>
@@ -17,8 +18,8 @@ MVVM with protocols and delegates
 Alert Manager
 Loading Manager
 Without storyboard. UIViewController and Cell xib.
+
+Database:
+-API
 ```
-
-
-
 
