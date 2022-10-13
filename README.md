@@ -1,7 +1,7 @@
 # MVVM_Practice
 
 ```html
-ViewModel has been implemented.
+This is the first project that I've use MVVM with fully understanding.
 ```
 
 <h2>Architecture</h2>
