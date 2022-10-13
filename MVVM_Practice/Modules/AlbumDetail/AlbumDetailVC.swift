@@ -24,6 +24,7 @@ final class AlbumDetailVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTitle()
         viewModel.viewDidLoad()
         registerCells()
         tableView.delegate = self
@@ -34,6 +35,10 @@ final class AlbumDetailVC: UIViewController {
         let cellIdentifier = String(describing: AlbumsDetailCell.self)
         let nib = UINib(nibName: cellIdentifier, bundle: .main)
         tableView.register(nib, forCellReuseIdentifier: cellIdentifier)
+    }
+    private func setTitle() {
+        title = "Albums"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 extension AlbumDetailVC: AlbumDetailViewModelOutput {

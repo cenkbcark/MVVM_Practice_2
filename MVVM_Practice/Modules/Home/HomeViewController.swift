@@ -24,6 +24,7 @@ final class HomeViewController: UIViewController {
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTitle()
         viewModel.viewDidLoad()
         registerCells()
         tableView.delegate = self
@@ -34,6 +35,10 @@ final class HomeViewController: UIViewController {
         let cellIdentifier = String(describing: CustomCell.self)
         let nib = UINib(nibName: cellIdentifier, bundle: .main)
         tableView.register(nib, forCellReuseIdentifier: cellIdentifier)
+    }
+    private func setTitle() {
+        title = "Users"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 }
 extension HomeViewController: HomeViewModelOutput {

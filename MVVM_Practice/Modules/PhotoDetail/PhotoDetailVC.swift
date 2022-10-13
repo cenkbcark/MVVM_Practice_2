@@ -24,6 +24,7 @@ final class PhotoDetailVC: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setTitle()
         viewModel.viewDidLoad()
         registerCells()
         collectionView.delegate = self
@@ -34,6 +35,10 @@ final class PhotoDetailVC: UIViewController {
         let cellIdentifier = String(describing: PhotoDetailCell.self)
         let nib = UINib(nibName: cellIdentifier, bundle: .main)
         collectionView.register(nib, forCellWithReuseIdentifier: cellIdentifier)
+    }
+    private func setTitle() {
+        title = "Photos"
+        navigationController?.navigationBar.prefersLargeTitles = true
     }
 
 }
