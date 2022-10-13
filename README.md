@@ -5,6 +5,7 @@ ViewModel has been implemented.
 ```
 
 <h2>Architecture</h2>
+
 ```html
 I preferred clean MVVM pattern for more testability and maintainability.
 ```
