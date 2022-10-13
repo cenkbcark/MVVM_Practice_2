@@ -1,5 +1,5 @@
 //
-//  HomeViewController.swift
+//  AlbumDetailVC.swift
 //  MVVM_Practice
 //
 //  Created by Cenk Bahadır Çark on 13.10.2022.
@@ -7,53 +7,55 @@
 
 import UIKit
 
-final class HomeViewController: UIViewController {
-
-    @IBOutlet weak var tableView: UITableView!
-    private var viewModel: HomeViewModelInput
-    private var userList: [UserResponseModel] = []
+final class AlbumDetailVC: UIViewController {
     
-    init(viewModel: HomeViewModelInput) {
+    private var viewModel: AlbumDetailViewModelInput
+    private var albumList: [AlbumResponseModel] = []
+    @IBOutlet weak var tableView: UITableView!
+    
+    init(viewModel: AlbumDetailViewModelInput) {
         self.viewModel = viewModel
-        super.init(nibName: "HomeViewController", bundle: .main)
+        super.init(nibName: "AlbumDetailVC", bundle: .main)
         self.viewModel.output = self
     }
-    
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.viewDidLoad()
         registerCells()
         tableView.delegate = self
         tableView.dataSource = self
+
     }
-    
     func registerCells() {
-        let cellIdentifier = String(describing: CustomCell.self)
+        let cellIdentifier = String(describing: AlbumsDetailCell.self)
         let nib = UINib(nibName: cellIdentifier, bundle: .main)
         tableView.register(nib, forCellReuseIdentifier: cellIdentifier)
     }
 }
-extension HomeViewController: HomeViewModelOutput {
-    
-    func home(_ viewModel: HomeViewModelInput, userListDidLoad list: [UserResponseModel]) {
-        userList = list
+extension AlbumDetailVC: AlbumDetailViewModelOutput {
+    func home(_ viewModel: AlbumDetailViewModelInput, albumListDidLoad list: [AlbumResponseModel]) {
+        
+        albumList = list
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
+    
+    
 }
-extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
+extension AlbumDetailVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return userList.count
+        return albumList.count
     }
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let cell = tableView.dequeueReusableCell(withIdentifier: "CustomCell", for: indexPath) as? CustomCell {
-            cell.setUser(from: userList[indexPath.row])
+        
+        if let cell = tableView.dequeueReusableCell(withIdentifier: "AlbumsDetailCell", for: indexPath) as? AlbumsDetailCell {
+            cell.setAlbum(for: albumList[indexPath.row])
             return cell
         }
         return UITableViewCell()
@@ -61,11 +63,11 @@ extension HomeViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let networkManager = NetworkManager(session: .shared)
-        let albumApi = AlbumAPI(networkManager: networkManager)
-        let albumDetailViewModel = AlbumDetailViewModel(albumAPI: albumApi, user: userList[indexPath.row])
-
-        let albumDetailVC = AlbumDetailVC(viewModel: albumDetailViewModel)
-        self.navigationController?.pushViewController(albumDetailVC, animated: true)
+        let photoApi = PhotosAPI(networkManager: networkManager)
+        let photoDetailViewModel = PhotoDetailViewModel(photoAPI: photoApi, album: albumList[indexPath.row])
+        
+        let photoDetailVC = PhotoDetailVC(viewModel: photoDetailViewModel)
+        self.navigationController?.pushViewController(photoDetailVC, animated: true)
+        
     }
 }
-

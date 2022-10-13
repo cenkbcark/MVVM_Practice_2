@@ -12,7 +12,6 @@ protocol HomeViewModelInput {
     
     func viewDidLoad()
     func retriveUserList()
-    func retriveAlbums(for user: UserResponseModel)
 }
 
 protocol HomeViewModelOutput: AnyObject {
@@ -35,20 +34,17 @@ final class HomeViewModel: HomeViewModelInput {
     }
     
     func retriveUserList() {
+        LoadingManager.shared.show()
         userAPI.retriveUser(request: .init()) { [weak self] result in
+            LoadingManager.shared.hide()
             guard let self = self else { return }
-            
             switch result {
             case .success(let userList):
                 self.userList.append(contentsOf: userList)
                 self.output?.home(self, userListDidLoad: userList)
             case .failure(let error):
-                print(error.description)
+                AlertManager.shared.showAlert(with: error)
             }
         }
-    }
-    
-    func retriveAlbums(for user: UserResponseModel) {
-        
     }
 }
